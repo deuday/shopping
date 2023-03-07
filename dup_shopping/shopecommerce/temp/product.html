@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+          {{Product.description|truncatewords:155}}
+{% endblock %}
+{% block title %}
+{% if category %}
+        {{Product.name}}"GBD SHOPPE"
+
+     {% endif %}
+{% endblock %}
+{% block content %}
+
+<div class="row my_prod_row_class">
+    <div class="mx-auto">
+        <p><a href="{% url 'gbdapp:AllProdCat' %}"> Home</a>|<a href="{{Product.category.get_url}}">{{Product.category}}</a>|{{Product.name}}</p>
+        </div>
+    </div>
+<div class="container">
+    <br>
+    <div class="row" >
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <div style="min-width:18rem">
+            <img src ="{{Product.image.url}}"  alt="{{Product.name}}" width="250px;" height="200px;">
+        </div>
+    </div>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title">{{Product.name}}</h1>
+            <p>₹{{Product.price}}</p>
+            <p class="my_title">Product Details</p>
+            <p class="text-justify my_prod_text">{{Product.description}}</p>
+            {% if Product.stock <= 0 %}
+            <p class="text-justify my_prod_text"><B>Out Of Stock!</B></p>
+            {% else %}
+            <a class="btn btn-secondary" href="{% url 'shopping_cart:add_cart' Product.id %}">Add to Cart</a>
+            {% endif %}
+        </div>
+</div>
+</div>
+</div>
+
+{% endblock %}
